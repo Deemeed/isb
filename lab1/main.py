@@ -1,12 +1,12 @@
-from fileWork import readfile, writefile, readjson, writejson
-from task1.task1 import encrypt
+from filework import readfile, writefile, readjson, writejson
+from task1.encrypt import encrypt
 
 
 def main():
-    data = readfile("task1/plaintext_task1.txt")
-    key = readjson("task1/key1.json")
+    data = readfile("task1/plaintext.txt")
+    key = readjson("task1/key.json")
     ciphertext = encrypt(data, key)
-    writefile("task1/ciphertext_task1.txt", ciphertext)
+    writefile("task1/ciphertext.txt", ciphertext)
 
 if __name__ == "__main__":
     main()

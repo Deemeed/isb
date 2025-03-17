@@ -1,4 +1,4 @@
-def encrypt(data: str, key):
+def encrypt(data: str, key: dict[str, str]) -> str:
     result = ""
 
     for value in data.upper():
