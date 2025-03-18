@@ -5,6 +5,10 @@
     "key": "task1/key.json"
   },
   "task2": {
-
+    "ciphertext": "task2/cod23.txt",
+    "plaintext": "task2/plaintext.txt",
+    "key": "task2/key.json",
+    "frequency": "task2/frequency.json",
+    "russian_frequency": "task2/russian_frequency.json"
   }
 }
