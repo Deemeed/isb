@@ -1,6 +1,14 @@
 import json
 
-def readfile(filename: str):
+
+def readfile(filename: str) -> str:
+
+    """
+    Reads data from txt file
+    :param filename: path to file
+    :return: data string
+    """
+
     try:
         with open(filename, 'r', encoding='utf-8') as file:
             data = file.read()
@@ -11,7 +19,16 @@ def readfile(filename: str):
 
     return data
 
-def writefile(filename: str, data):
+
+def writefile(filename: str, data: str) -> None:
+
+    """
+    Writes data to txt file
+    :param filename: path to file
+    :param data: data to write
+    :return: none
+    """
+
     try:
         with open(filename, 'w', encoding='utf-8') as file:
             file.write(data)
@@ -20,7 +37,15 @@ def writefile(filename: str, data):
     except Exception as exc:
         print(f'Something went wrong: {exc}')
 
-def readjson(filename: str):
+
+def readjson(filename: str) -> dict[str, str]:
+
+    """
+    Reads data from json
+    :param filename: path to file
+    :return: data
+    """
+
     try:
         with open(filename, 'r', encoding='utf-8') as file:
             data = json.load(file)
@@ -33,10 +58,19 @@ def readjson(filename: str):
 
     return data
 
-def writejson(filename: str, data):
+
+def writejson(filename: str, data) -> None:
+
+    """
+    Writes data to json
+    :param filename: path to file
+    :param data: data to write
+    :return: none
+    """
+
     try:
-        with open(filename, 'r', encoding='utf-8') as file:
-            json.dump(data, file, indent=4)
+        with open(filename, 'w', encoding='utf-8') as file:
+            json.dump(data, file, indent=4, ensure_ascii=False)
     except json.JSONDecodeError as e:
         print(f"Decoding error JSON: {e}")
     except FileNotFoundError:

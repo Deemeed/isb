@@ -1,0 +1,10 @@
+{
+  "task1": {
+    "ciphertext": "task1/ciphertext.txt",
+    "plaintext": "task1/plaintext.txt",
+    "key": "task1/key.json"
+  },
+  "task2": {
+
+  }
+}
