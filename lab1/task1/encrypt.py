@@ -1,15 +1,15 @@
-def encrypt(data: str, key: dict[str, str]) -> str:
-
-    """
-    Encrypts text using a key
-    :param data: text to encrypt
-    :param key: encryption key
-    :return: encrypted text
-    """
-
+def encrypt_vigenere(data: str, key: str, alphabet: str) -> str:
     result = ""
 
-    for value in data.upper():
-        result += key[value]
+    data = data.upper()
+    for i in range(len(data)):
+        if data[i] in alphabet:
+            value = alphabet[(alphabet.index(data[i]) + alphabet.index(key[i % len(key)])) % len(alphabet)]
+            result += value
+        else:
+            result += data[i]
 
     return result
+
+def decrypt_vigenere(data, key, alphabet):
+    pass
