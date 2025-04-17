@@ -1,0 +1,5 @@
+{
+  "cpp_sequence" : "task1/cpp_sequence.txt",
+  "java_sequence" : "task1/java_sequence.txt",
+  "results" : "results.json"
+}
