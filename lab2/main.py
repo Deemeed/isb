@@ -3,6 +3,12 @@ from task2.NIST_tests import frequency_bit_test, identical_consecutive_bit_test,
 
 
 def tests() -> None:
+
+    """
+    Running all tests with each sequence, saving results to json
+    :return: None
+    """
+
     files = readjson("settings.json")
 
     data = readjson(files["results"])

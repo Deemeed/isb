@@ -3,6 +3,13 @@ import scipy.special as sc
 
 
 def frequency_bit_test(sequence: str) -> float:
+
+    """
+    Check for random sequence using frequency bit test
+    :param sequence: sequence to check
+    :return: result
+    """
+
     s = 0
     for i in sequence:
         if i == "1":
@@ -16,6 +23,13 @@ def frequency_bit_test(sequence: str) -> float:
 
 
 def identical_consecutive_bit_test(sequence: str) -> float:
+
+    """
+    Check for random sequence using identical consecutive bit test
+    :param sequence: sequence to check
+    :return: result
+    """
+
     n = len(sequence)
     z = sequence.count("1") / n
 
@@ -33,6 +47,13 @@ def identical_consecutive_bit_test(sequence: str) -> float:
 
 
 def longest_sequence_of_ones_test(sequence: str) -> float:
+
+    """
+    Check for random sequence using longest sequence of ones in block test
+    :param sequence: sequence to check
+    :return: result
+    """
+
     v = [0, 0, 0, 0]
     p = [0.2148, 0.3672, 0.2305, 0.1875]
 
