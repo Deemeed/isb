@@ -34,7 +34,7 @@ def identical_consecutive_bit_test(sequence: str) -> float:
 
 def longest_sequence_of_ones_test(sequence: str) -> float:
     v = [0, 0, 0, 0]
-    p = [0.2148, 0.3672, 0.2305, 0,1875]
+    p = [0.2148, 0.3672, 0.2305, 0.1875]
 
     for i in range(0, len(sequence), 8):
         ones_cnt = 0
@@ -60,5 +60,5 @@ def longest_sequence_of_ones_test(sequence: str) -> float:
     for i in range(4):
         hi_2 += pow(v[i] - 16 * p[i], 2) / (16 * p[i])
 
-    p_value = sc.gammainc(3 / 2, hi_2 / 2)
+    p_value = sc.gammainc((3 / 2), (hi_2 / 2))
     return p_value

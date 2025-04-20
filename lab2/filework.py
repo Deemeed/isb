@@ -38,7 +38,7 @@ def writefile(filename: str, data: str) -> None:
         print(f'Something went wrong: {exc}')
 
 
-def readjson(filename: str) -> dict[str, str]:
+def readjson(filename: str) -> dict[str, any]:
 
     """
     Reads data from json
