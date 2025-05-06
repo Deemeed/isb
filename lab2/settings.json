@@ -1,5 +1,9 @@
 {
   "cpp_sequence" : "task1/cpp_sequence.txt",
   "java_sequence" : "task1/java_sequence.txt",
-  "results" : "results.json"
+  "results" : "results.json",
+  "longest_sequence_test_params": {
+    "block_size": 8,
+    "p": [0.2148, 0.3672, 0.2305, 0.1875]
+  }
 }

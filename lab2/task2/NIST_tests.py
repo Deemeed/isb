@@ -1,3 +1,5 @@
+from lab2.filework import readjson
+
 from math import erfc, sqrt
 import scipy.special as sc
 
@@ -54,13 +56,18 @@ def longest_sequence_of_ones_test(sequence: str) -> float:
     :return: result
     """
 
-    v = [0, 0, 0, 0]
-    p = [0.2148, 0.3672, 0.2305, 0.1875]
+    settings = readjson("settings.json")
+    params = settings["longest_sequence_test_params"]
+    block_size = params["block_size"]
+    p = params["p"]
 
-    for i in range(0, len(sequence), 8):
+    v = [0, 0, 0, 0]
+    blocks_count = len(sequence) // block_size
+
+    for i in range(0, len(sequence), block_size):
         ones_cnt = 0
         ones_max = -1
-        for j in range(i, i + 8):
+        for j in range(i, i + block_size):
             if sequence[j] == "1":
                 ones_cnt += 1
                 ones_max = max(ones_cnt, ones_max)
@@ -79,7 +86,7 @@ def longest_sequence_of_ones_test(sequence: str) -> float:
 
     hi_2 = 0
     for i in range(4):
-        hi_2 += pow(v[i] - 16 * p[i], 2) / (16 * p[i])
+        hi_2 += pow(v[i] - blocks_count * p[i], 2) / (blocks_count * p[i])
 
     p_value = sc.gammainc((3 / 2), (hi_2 / 2))
     return p_value
