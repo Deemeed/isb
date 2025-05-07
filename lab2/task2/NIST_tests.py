@@ -88,5 +88,5 @@ def longest_sequence_of_ones_test(sequence: str) -> float:
     for i in range(4):
         hi_2 += pow(v[i] - blocks_count * p[i], 2) / (blocks_count * p[i])
 
-    p_value = sc.gammainc((3 / 2), (hi_2 / 2))
+    p_value = sc.gammaincc((3 / 2), (hi_2 / 2))
     return p_value
