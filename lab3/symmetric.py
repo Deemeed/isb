@@ -13,8 +13,8 @@ class Symmetric:
     @staticmethod
     def padding_text(text: str) -> bytes:
         padder = padding.ANSIX923(16).padder()
-        text = bytes(text, 'UTF-8')
-        padded_text = padder.update(text) + padder.finalize()
+        b_text = bytes(text, 'UTF-8')
+        padded_text = padder.update(b_text) + padder.finalize()
 
         return padded_text
 
