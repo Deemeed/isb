@@ -3,40 +3,44 @@ from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 
-def generate_symmetric_key() -> str:
-    key = os.urandom(32)
+class Symmetric:
+    @staticmethod
+    def generate_symmetric_key(key_len: int) -> bytes:
+        key = os.urandom(key_len // 8)
 
-    return key
+        return key
 
+    @staticmethod
+    def padding_text(text: str) -> bytes:
+        padder = padding.ANSIX923(16).padder()
+        text = bytes(text, 'UTF-8')
+        padded_text = padder.update(text) + padder.finalize()
 
-def padding_text(text: str) -> str:
-    padder = padding.ANSIX923(32).padder()
-    text = bytes(text, 'UTF-8')
-    padded_text = padder.update(text) + padder.finalize()
+        return padded_text
 
-    return padded_text
+    @staticmethod
+    def encrypt_text(text: str, key: bytes) -> bytes:
+        padded_text = Symmetric.padding_text(text)
 
+        iv = os.urandom(16)
+        cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
+        encryptor = cipher.encryptor()
+        c_text = encryptor.update(padded_text) + encryptor.finalize()
 
-def encrypt_text(text: str, key: str) -> str:
-    padded_text = padding_text(text)
+        return c_text
 
-    iv = os.urandom(16)
-    cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
-    encryptor = cipher.encryptor()
-    c_text = encryptor.update(padded_text) + encryptor.finalize()
+    @staticmethod
+    def decrypt_text(c_text: bytes, key: bytes) -> str:
+        iv = os.urandom(16)
+        cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
+        decryptor = cipher.decryptor()
+        dc_text = decryptor.update(c_text) + decryptor.finalize()
 
-    return c_text
+        return Symmetric.unpadding_text(dc_text)
 
+    @staticmethod
+    def unpadding_text(dc_text: bytes) -> str:
+        unpadder = padding.ANSIX923(16).unpadder()
+        unpadded_dc_text = unpadder.update(dc_text) + unpadder.finalize()
 
-def decrypt_text(c_text: str, cipher=None) -> str:
-    decryptor = cipher.decryptor()
-    dc_text = decryptor.update(c_text) + decryptor.finalize()
-
-    return unpadding_text(dc_text)
-
-
-def unpadding_text(dc_text: str) -> str:
-    unpadder = padding.ANSIX923(32).unpadder()
-    unpadded_dc_text = unpadder.update(dc_text) + unpadder.finalize()
-
-    return unpadded_dc_text
+        return unpadded_dc_text

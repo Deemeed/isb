@@ -38,7 +38,7 @@ def writefile(filename: str, data: str | dict | bytes, mode: str) -> None:
     """
 
     try:
-        with open(filename, 'w', encoding='utf-8') as file:
+        with open(filename, mode) as file:
             if filename.endswith(".json"):
                 json.dump(data, file, ensure_ascii=False, indent=4)
             else:
