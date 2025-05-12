@@ -6,6 +6,7 @@ from lab3.cryptosistem.filework import (readfile, writefile, serialization_publi
 class CryptoSistem:
     def __init__(self, key_len):
         self._key_len = key_len
+        self._iv = Symmetric.iv()
 
     def generate_hybrid_keys(self, path_c_symmetric_key: str, path_public_key: str, path_private_key: str) -> None:
 
@@ -44,13 +45,13 @@ class CryptoSistem:
 
         plain_text = readfile(path_plain_text, 'rb')
 
-        encrypted_text = Symmetric.encrypt_text(plain_text, symmetric_key)
+        encrypted_text = Symmetric.encrypt_text(plain_text, symmetric_key, self._iv)
         writefile(path_encrypted_text, encrypted_text, 'wb')
 
     def decrypt_data(self, path_encrypted_text: str, path_private_key: str, path_c_symmetric_key: str, path_decrypted_text: str) -> None:
 
         """
-        Runs 3d scenario: decrypt text
+        Runs 3rd scenario: decrypt text
         :param path_encrypted_text: path to encrypted text
         :param path_private_key: path to private key
         :param path_c_symmetric_key: path to symmetric key
@@ -64,5 +65,6 @@ class CryptoSistem:
 
         encrypted_text = readfile(path_encrypted_text, 'rb')
 
-        decrypted_text = Symmetric.decrypt_text(encrypted_text, symmetric_key)
-        writefile(path_decrypted_text, decrypted_text, 'wb')
+        decrypted_bytes = Symmetric.decrypt_text(encrypted_text, symmetric_key, self._iv)
+        decrypted_text = decrypted_bytes.decode('utf-8')
+        writefile(path_decrypted_text, decrypted_text, 'w')

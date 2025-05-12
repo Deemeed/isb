@@ -4,6 +4,9 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 
 class Symmetric:
+    def __init__(self):
+        self._iv = os.urandom(algorithms.Camellia.block_size // 8)
+
     @staticmethod
     def generate_symmetric_key(key_len: int) -> bytes:
 
@@ -16,6 +19,18 @@ class Symmetric:
         key = os.urandom(key_len // 8)
 
         return key
+
+    @staticmethod
+    def iv() -> bytes:
+
+        """
+        creates iv
+        :return: iv
+        """
+
+        iv = os.urandom(algorithms.Camellia.block_size // 8)
+
+        return iv
 
     @staticmethod
     def padding_text(text: bytes) -> bytes:
@@ -32,7 +47,7 @@ class Symmetric:
         return padded_text
 
     @staticmethod
-    def encrypt_text(text: bytes, key: bytes) -> bytes:
+    def encrypt_text(text: bytes, key: bytes, iv: bytes) -> bytes:
 
         """
         encrypts text
@@ -43,7 +58,6 @@ class Symmetric:
 
         padded_text = Symmetric.padding_text(text)
 
-        iv = os.urandom(algorithms.Camellia.block_size // 8)
         cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
         encryptor = cipher.encryptor()
         c_text = encryptor.update(padded_text) + encryptor.finalize()
@@ -51,7 +65,7 @@ class Symmetric:
         return c_text
 
     @staticmethod
-    def decrypt_text(c_text: bytes, key: bytes) -> bytes:
+    def decrypt_text(c_text: bytes, key: bytes, iv: bytes) -> bytes:
 
         """
         decrypts text
@@ -60,7 +74,6 @@ class Symmetric:
         :return: decrypted text
         """
 
-        iv = os.urandom(algorithms.Camellia.block_size // 8)
         cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
         decryptor = cipher.decryptor()
         dc_text = decryptor.update(c_text) + decryptor.finalize()
