@@ -3,7 +3,7 @@ from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 
-def generate_simmetric_key() -> str:
+def generate_symmetric_key() -> str:
     key = os.urandom(32)
 
     return key
