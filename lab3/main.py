@@ -1,8 +1,8 @@
 import pyinputplus as pyip
 import easygui
 import json
-from cryptosistem import CryptoSistem
-from lab3.filework import readfile
+from cryptosistem.cryptosistem import CryptoSistem
+from cryptosistem.filework import readfile
 
 
 def main():

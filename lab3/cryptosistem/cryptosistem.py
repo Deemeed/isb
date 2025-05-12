@@ -1,6 +1,6 @@
-from symmetric import Symmetric
-from asymmetric import Asymmetric
-from filework import (readfile, writefile, serialization_public, serialization_private, deserialization_public, deserialization_private)
+from lab3.cryptosistem.symmetric import Symmetric
+from lab3.cryptosistem.asymmetric import Asymmetric
+from lab3.cryptosistem.filework import (readfile, writefile, serialization_public, serialization_private, deserialization_private)
 
 
 class CryptoSistem:
@@ -63,8 +63,6 @@ class CryptoSistem:
         symmetric_key = Asymmetric.decrypt_symmetric_key(private_key, c_symmetric_key)
 
         encrypted_text = readfile(path_encrypted_text, 'rb')
-        if not isinstance(encrypted_text, bytes):
-            raise ValueError("Invalid encrypted data format")
 
         decrypted_text = Symmetric.decrypt_text(encrypted_text, symmetric_key)
-        writefile(path_decrypted_text, decrypted_text, 'w')
+        writefile(path_decrypted_text, decrypted_text, 'wb')

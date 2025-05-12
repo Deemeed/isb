@@ -26,7 +26,7 @@ class Symmetric:
         :return: padded text
         """
 
-        padder = padding.ANSIX923(16).padder()
+        padder = padding.ANSIX923(algorithms.Camellia.block_size).padder()
         padded_text = padder.update(text) + padder.finalize()
 
         return padded_text
@@ -43,7 +43,7 @@ class Symmetric:
 
         padded_text = Symmetric.padding_text(text)
 
-        iv = os.urandom(16)
+        iv = os.urandom(algorithms.Camellia.block_size // 8)
         cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
         encryptor = cipher.encryptor()
         c_text = encryptor.update(padded_text) + encryptor.finalize()
@@ -60,7 +60,7 @@ class Symmetric:
         :return: decrypted text
         """
 
-        iv = os.urandom(16)
+        iv = os.urandom(algorithms.Camellia.block_size // 8)
         cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
         decryptor = cipher.decryptor()
         dc_text = decryptor.update(c_text) + decryptor.finalize()
@@ -76,7 +76,7 @@ class Symmetric:
         :return: unpadded text
         """
 
-        unpadder = padding.ANSIX923(16).unpadder()
+        unpadder = padding.ANSIX923(algorithms.Camellia.block_size).unpadder()
         unpadded_dc_text = unpadder.update(dc_text) + unpadder.finalize()
 
         return unpadded_dc_text

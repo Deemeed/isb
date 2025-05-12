@@ -1,9 +1,9 @@
 {
-  "symmetric_key" : "symmetric_key.txt",
-  "public_key" : "public_key.pem",
-  "private_key" : "private_key.pem",
-  "plain_text" : "plain_text.txt",
-  "encrypted_text" : "encrypted_text.txt",
-  "decrypted_text" : "decrypted_text.txt",
+  "symmetric_key" : "keys/symmetric_key.txt",
+  "public_key" : "keys/public_key.pem",
+  "private_key" : "keys/private_key.pem",
+  "plain_text" : "texts/plain_text.txt",
+  "encrypted_text" : "texts/encrypted_text.txt",
+  "decrypted_text" : "texts/decrypted_text.txt",
   "key_length": 128
 }
