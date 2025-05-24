@@ -1,7 +1,6 @@
 import hashlib
-import itertools
+from itertools import product
 import multiprocessing as mp
-from itertools import repeat
 
 
 class SearchCardNumber:
@@ -14,7 +13,7 @@ class SearchCardNumber:
     @staticmethod
     def generate_numbers(bins: list[str], last_four: str) -> list[str]:
         new_numbers = []
-        for part_of_new_number in itertools.product("0123456789", repeat=6):
+        for part_of_new_number in product("0123456789", repeat=6):
             for bin in bins:
                 new_numbers.append(bin + ''.join(part_of_new_number) + last_four)
 
