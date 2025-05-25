@@ -1,6 +1,7 @@
+import pyinputplus as pyip
+
 from lab4.app.application import Application
 from lab4.app.filework import readfile
-import pyinputplus as pyip
 
 
 def main():
