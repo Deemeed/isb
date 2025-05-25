@@ -2,19 +2,33 @@ import hashlib
 from itertools import product
 import multiprocessing as mp
 import time
+
 from matplotlib import pyplot as plt
-import numpy as np
 
 
 class CardNumberWork:
     @staticmethod
     def get_cores() -> int:
+
+        """
+        Count the cores
+        :return: count of cores
+        """
+
         cores = mp.cpu_count()
 
         return cores
 
     @staticmethod
     def generate_numbers(bins: list[str], last_four: str) -> list[str]:
+
+        """
+        Generating all possible numbers
+        :param bins: bins
+        :param last_four: last four digits
+        :return: list of numbers
+        """
+
         new_numbers = []
         for part_of_new_number in product("0123456789", repeat=6):
             for bin in bins:
@@ -24,12 +38,29 @@ class CardNumberWork:
 
     @staticmethod
     def is_same_number(options: list[str]) -> str | bool:
+
+        """
+        Check if number is right
+        :param options: list of hash and numbers
+        :return: number if it is right else False
+        """
+
         hashed = hashlib.sha1(options[1].encode()).hexdigest()
 
         return options[1] if options[0] == hashed else False
 
     @staticmethod
     def search_number(hash: str, last_four: str, bins: tuple[str, str], cores: int) -> str:
+
+        """
+        Searching number using multiprocessing
+        :param hash: hash
+        :param last_four: last four digits
+        :param bins: bins
+        :param cores: cores count
+        :return: found number
+        """
+
         number = ""
         with mp.Pool(processes=cores) as p:
             options = [[hash, new_number] for new_number in CardNumberWork.generate_numbers(bins, last_four)]
@@ -43,6 +74,13 @@ class CardNumberWork:
 
     @staticmethod
     def luhn_check(number: str) -> bool:
+
+        """
+        Check is the number correct using luhn algorithm
+        :param number: card number
+        :return: True or False
+        """
+
         reversed_number = number[::-1]
         s = 0
         for i in range(len(reversed_number)):
@@ -59,7 +97,18 @@ class CardNumberWork:
         return s % 10 == 0
 
     @staticmethod
-    def measure_time(hash: str, last_four: str, bins: list[str], max_cores: int):
+    def measure_time(hash: str, last_four: str, bins: list[str], max_cores: int, path_to_results: str) -> None:
+
+        """
+        Measures the running time for different number of processes and visualize it
+        :param hash: hash
+        :param last_four: last four digits
+        :param bins: bins
+        :param max_cores: cores count
+        :param path_to_results: path to save graph
+        :return: None
+        """
+
         import gc
         times = []
         x = range(1, int(1.5 * max_cores))
@@ -88,7 +137,5 @@ class CardNumberWork:
         plt.grid(True)
         plt.legend()
 
-        plt.savefig('time_by_processes.png')
+        plt.savefig(path_to_results)
         plt.show()
-
-        return times

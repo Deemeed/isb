@@ -2,5 +2,7 @@
   "last_four": "5688",
   "hash": "bf67709b1216cb66038f3ae5ad2b4c066be03cbb",
   "BINS": ["220100", "220220"],
-  "card_number": "card_number.txt"
+  "card_number": "results/card_number.txt",
+  "time_by_processes_results": "results/time_by_processes.png",
+  "cores": 14
 }

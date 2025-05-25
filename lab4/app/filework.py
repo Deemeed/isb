@@ -1,5 +1,6 @@
 import json
 
+
 def readfile(filename: str) -> str | dict:
 
     """
